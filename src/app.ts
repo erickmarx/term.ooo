@@ -3,7 +3,7 @@ import fs from "fs";
 import { Colors } from "./colors.enum";
 
 //TODO APLICAR YELLOW APENAS NA MINHA LETRA UNICA
-//TODO 6 TENTATIVAS
+//TODO VERIFICAR PALAVRAS REPETIDAS
 
 export class App {
   constructor() {
@@ -22,11 +22,11 @@ export class App {
   tried: string[] = [];
 
   execute(word: string): void {
-    if (this.tried.length >= 6) {
-      throw new Error("Try tomorrow");
-    }
+    this.verifyTries();
+
     this.originalInputedWord = word;
     this.tried.push(word);
+
     this.updateInputedWord()
       .validateLength()
       .verifyWord()
@@ -91,9 +91,20 @@ export class App {
     }
     return this;
   }
+
+  private verifyRepeatedTry() {
+    if (this.tried.includes(this.originalInputedWord)) {
+      throw new Error('Word already tried')
+    }
+  }
+  private verifyTries() {
+    if (this.tried.length >= 6) {
+      throw new Error("Try tomorrow");
+    }
+  }
 }
 
 const app = new App();
 app.execute("novas");
-console.log(app.tried)
+console.log(app.tried);
 console.log("=======");
