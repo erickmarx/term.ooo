@@ -22,12 +22,11 @@ export class App {
   tried: string[] = [];
 
   execute(word: string): void {
-    this.verifyTries();
-
     this.originalInputedWord = word;
-    this.tried.push(word);
 
-    this.updateInputedWord()
+    this.verifyTries()
+      .verifyRepeatedTry()
+      .updateInputedWord()
       .validateLength()
       .verifyWord()
       .checkIfGreen()
@@ -38,6 +37,7 @@ export class App {
   }
 
   private updateInputedWord(): this {
+    this.tried.push(this.originalInputedWord);
     this.inputedWord = [];
     for (const letter of this.originalInputedWord.split("")) {
       this.inputedWord.push({ letter });
@@ -94,17 +94,23 @@ export class App {
 
   private verifyRepeatedTry() {
     if (this.tried.includes(this.originalInputedWord)) {
-      throw new Error('Word already tried')
+      throw new Error("Word already tried");
     }
+    return this;
   }
+
   private verifyTries() {
     if (this.tried.length >= 6) {
       throw new Error("Try tomorrow");
     }
+    return this;
   }
 }
 
 const app = new App();
 app.execute("novas");
+console.log(app.tried);
+console.log("=======");
+app.execute("novos");
 console.log(app.tried);
 console.log("=======");
