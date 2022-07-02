@@ -2,8 +2,6 @@ import { faker } from "@faker-js/faker";
 import fs from "fs";
 import { Colors } from "./colors.enum";
 
-//TODO APLICAR YELLOW APENAS NA MINHA LETRA UNICA
-//TODO VERIFICAR PALAVRAS REPETIDAS
 
 export class App {
   constructor() {
@@ -32,8 +30,8 @@ export class App {
       .checkIfGreen()
       .checkIfYellow()
       .turnRemainInBlack();
-    console.log(this.inputedWord);
-    console.log(this.selectedWord);
+    console.log("Inputed word: ", this.inputedWord);
+    console.log(`Selected word: ${this.selectedWord}`);
   }
 
   private updateInputedWord(): this {
@@ -92,14 +90,14 @@ export class App {
     return this;
   }
 
-  private verifyRepeatedTry() {
+  private verifyRepeatedTry(): this {
     if (this.tried.includes(this.originalInputedWord)) {
       throw new Error("Word already tried");
     }
     return this;
   }
 
-  private verifyTries() {
+  private verifyTries(): this {
     if (this.tried.length >= 6) {
       throw new Error("Try tomorrow");
     }
@@ -108,9 +106,10 @@ export class App {
 }
 
 const app = new App();
-app.execute("novas");
-console.log(app.tried);
-console.log("=======");
-app.execute("novos");
-console.log(app.tried);
-console.log("=======");
+const testes = (word: string) => {
+  app.execute(word);
+  console.log(app.tried.length);
+  console.log("=======");
+};
+
+testes("teste");
