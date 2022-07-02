@@ -15,7 +15,7 @@ export class App {
     this.selectedWord = wordsList[randomNumber].split("");
   }
   private originalInputedWord: string;
-  private inputedWord: { letter: string; color?: Colors }[] = [];
+  inputedWord: { letter: string; color?: Colors }[] = [];
   private selectedWord: string[];
   tried: string[] = [];
 
@@ -105,11 +105,11 @@ export class App {
   }
 }
 
-const app = new App();
-const testes = (word: string) => {
-  app.execute(word);
-  console.log(app.tried.length);
-  console.log("=======");
-};
+// const app = new App();
+// const testes = (word: string) => {
+//   app.execute(word);
+//   console.log(app.tried.length);
+//   console.log("=======");
+// };
 
-testes("teste");
+// testes("teste");
