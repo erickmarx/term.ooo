@@ -19,10 +19,14 @@ export class App {
   private originalInputedWord: string;
   private inputedWord: { letter: string; color?: Colors }[] = [];
   private selectedWord: string[];
+  tried: string[] = [];
 
   execute(word: string): void {
+    if (this.tried.length >= 6) {
+      throw new Error("Try tomorrow");
+    }
     this.originalInputedWord = word;
-
+    this.tried.push(word);
     this.updateInputedWord()
       .validateLength()
       .verifyWord()
@@ -91,8 +95,5 @@ export class App {
 
 const app = new App();
 app.execute("novas");
-console.log("=======");
-app.execute("teste");
-console.log("=======");
-app.execute("leoas");
+console.log(app.tried)
 console.log("=======");
