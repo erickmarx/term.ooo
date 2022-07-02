@@ -1,7 +1,7 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 
-export async function ApiDicionario(URI: string) {
-  return await axios.get<{ word: string }>(
-    `https://api.dicionario-aberto.net/${URI}`
-  );
+export async function ApiDicionario<T>(
+  URI: string
+): Promise<AxiosResponse<T, any>> {
+  return await axios.get<T>(`https://api.dicionario-aberto.net/${URI}`);
 }
